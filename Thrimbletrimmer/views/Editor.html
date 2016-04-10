@@ -1,0 +1,70 @@
+<div layout="column" layout-margin="layout-margin" layout-padding="layout-padding" layout-align="start center">
+<div id="EditorContent" md-whiteframe="4" style="min-width:656px">
+    <section class="wub-video-player" flex="auto" style="background-color:black">
+        <video id="wubPlayer" width="640" height="360" ng-src="{{ video.source }}">
+            Your browser does not support HTML5 video.
+        </video>
+        <section class="wub-video-controls" layout="row" layout-align="center center">
+            <div flex="5"><md-button aria-label="Play/Pause" class="md-icon-button wub-video-play small" title="Play/Pause" ng-click="player.playVideo()">
+                <md-icon md-svg-src="{{ player.playButtonIcon }}"></md-icon>
+            </md-button></div>
+            <md-slider-container flex="75">
+                <md-slider class="wub-video-seek" min="0" max="{{ wubsPlayer.duration }}" ng-model="wubsPlayer.currentTime" aria-label="seek"
+                            style="height:24px;margin-top:-24px;margin-left:12px;"></md-slider>
+            </md-slider-container>
+            <div class="wub-video-timer" style="color:white;padding-left:10px;" flex="15">{{ wubsPlayer.currentTime | Timestamp }}</div>
+            <md-fab-speed-dial md-direction="up" md-open="player.volumeDisplay" class="md-scale"
+                       ng-mouseenter="player.volumeDisplay=true" ng-mouseleave="player.volumeDisplay=false" flex="5">
+                <md-fab-trigger>
+                    <md-button aria-label="Volume" class="md-icon-button wub-volume-button small" title="Mute/Unmute" ng-click="player.muteVideo();">
+                        <md-icon md-svg-src="{{ player.volumeButtonIcon }}"></md-icon>
+                    </md-button>
+                </md-fab-trigger>
+                <md-fab-actions style="margin-top:-128px;">
+                    <md-slider-container aria-label="Volume" class="wub-volume-box md-fab md-raised md-mini">
+                        <md-slider ng-model="wubsPlayer.volume" min="0" max="1" step="0.05" aria-label="Volume" id="volume-slider" class="wub-volume-slider" md-vertical="md-vertical"
+                                    md-range="md-range"></md-slider>
+                    </md-slider-container>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+        </section>
+        <section class="wub-video-editorControls ec2" ng-hide="0" layout="row" layout-align="center center">
+            <div flex="5"><md-button id="GoToStartButton" class="md-icon-button md-raised md-warn small" ng-click="player.goToCutStart()" aria-label="Go To Start of Cut">
+                <md-icon md-svg-src="{{ player.goToStartIcon }}"></md-icon>
+            </md-button></div>
+            <div class="wub-editor-selectRange" flex="75">
+                <div ui-slider="{range: true}" min="0" max="{{ wubsPlayer.duration }}" step="0.01" use-decimals="use-decimals" ng-model="player.sliderRange"></div>
+            </div>
+            <div flex="5"><md-button id="GoToEndButton" class="md-icon-button md-raised md-warn small" ng-click="player.goToCutEndMinus10()" aria-label="Go To End of Cut -10 seconds">
+                <md-icon md-svg-src="{{ player.endReplayIcon }}"></md-icon>
+            </md-button></div>
+            <div flex="15">
+                <md-checkbox id="EndPlaybackCheckbox" ng-model="player.stopAtEdit" aria-label="Stop Here">Stop Here</md-checkbox>
+            </div>
+        </section>
+        <section class="wub-video-editorControls ec1" ng-hide="0" layout="row" layout-align="space-between center">
+            <div id="StartControl">
+                <md-button id="SetStartTimeButton" class="md-raised md-warn" ng-click="player.setStart()" aria-label="Set Start Cut">Set</md-button>
+                <input style="width:100px" type="text" id="StartTimeStamp" ng-model="player.editorStart" ng-model-options="{ updateOn: 'blur', getterSetter: true }" required="required"/>
+            </div>
+            <div id="EndControl" style="margin-right:14%;">
+                <input style="width:100px" type="text" id="EndTimeStamp" ng-model="player.editorEnd" ng-model-options="{ updateOn: 'blur', getterSetter: true }" required="required"/>
+                <md-button id="SetEndTimeButton" class="md-raised md-warn" ng-click="player.setEnd()" aria-label="Set End Cut">Set</md-button>
+            </div>
+        </section>
+    </section>
+    <section id="EditorDetailsPane" flex="auto" >
+        <md-input-container class="md-block" flex="100">
+            <label>Title</label>
+            <input id="VideoTitle" maxlength="91" ng-model="video.title" required="required"></input>
+        </md-input-container>
+        <md-input-container class="md-block" flex="100">
+          <label>Description</label>
+          <textarea id="VideoDescription" ng-model="video.description" required="required" md-maxlength="150" rows="6"></textarea>
+        </md-input-container>
+        <div style="text-align: center;">
+            <md-button id="SubmitButton" class="md-raised md-primary" ng-click="form.submitVideo($event)">Submit</md-button>
+        </div>
+    </section>
+</div>
+</div>

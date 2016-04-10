@@ -1,0 +1,28 @@
+THRIMBLETRIMMER II: TRIM HARDER
+
+View: The html/rendered elements.
+Model: The data that will get pushed out to the view.
+Controller: The code that controls the functions of the page, and contains the model.
+
+As it applies to Thrimbletrimmer:
+	Overall, basically what I was doing before, but now a lot of stuff will be handled/kept in sync "automatically". Turns out I reinvented the wheel a bit.
+	So the model will contain the video times, the trim offsets, the name/title, video source, description, etc.
+	The controller is what handles the video player/editor controls.
+	I'll want to create angular filters to handle transforming the time information for display
+	Maybe make the VideoPlayer and stuff a directive?
+
+
+IDEA:
+Have a second panel (hidden by default, automatically appears on video submission) that shows other videos claimed by the current user, letting the user immediately continue on to them.
+
+
+CURRENT BUGS:
+	Angular isn't always checking the "scope.wubsPlayer.currentTime" value for the model, so the seek bar and timestamp stop updating.
+        	->Possible solution is to make a second variable within scope.player to hold the time, point angular at that, and then have some functions outside of angular keep them in sync.
+            ->Angular 1.4.8 appears to work better than 1.5.3 for some reason.
+	Angular-Material is causing errors to be thrown, especially when sliders are involved.
+
+TODO:
+	Wire up to test server.
+	Add Google Authentication.
+		->Use a promise to be fulfilled by the Authentication methods to control the "Wubs" service and the Editor view.
