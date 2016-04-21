@@ -24,5 +24,11 @@ CURRENT BUGS:
 
 TODO:
 	Wire up to test server.
+        ->Mostly done.
 	Add Google Authentication.
 		->Use a promise to be fulfilled by the Authentication methods to control the "Wubs" service and the Editor view.
+        ->Dave said he's going to handle it through cookies and shit.
+	Simulate Dave serializing and inserting the on-load data into the page.
+    Handle submission (including puppy rewards, and a button to close the window?)
+    Audio sync controls.
+		->Switch left/right channels too.
